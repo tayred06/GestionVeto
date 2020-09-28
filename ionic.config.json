@@ -1,7 +1,8 @@
 {
   "name": "GestionVeto",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

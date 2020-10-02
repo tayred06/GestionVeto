@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Info Client</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngFor="let client of unClient">
+    <ion-item>
+      <ion-label>Nom</ion-label>
+      <ion-input type="text" value="{{ client.nom }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Prenom</ion-label>
+      <ion-input type="text" value="{{ client.prenom }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tel</ion-label>
+      <ion-input type="text" value="{{ client.tel }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Adresse</ion-label>
+      <ion-input type="text" value="{{ client.adresse }}"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button color="success" expand="block">Enregistrer</ion-button>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Nom de l'animal</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-button class="btn-closeModal" color="primary">X</ion-button>
+</ion-content>

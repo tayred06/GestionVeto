@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 
-import { AlertController } from '@ionic/angular';
+import { AlertController, ViewWillEnter } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 
 import { ClientService } from "../service/client.service";
@@ -8,7 +9,7 @@ import { Client } from "../model/client";
 
 import { from } from 'rxjs';
 import { ModalAjoutClientPage } from '../modal-ajout-client/modal-ajout-client.page';
-import { modalInfoClient } from '../modal-info-client/modal-info-client';
+import { ModalInfoClientPage } from '../modal-info-client/modal-info-client.page';
 
 @Component({
   selector: 'app-tab1',
@@ -16,41 +17,58 @@ import { modalInfoClient } from '../modal-info-client/modal-info-client';
   styleUrls: ['tab1.page.scss']
 })
 
-export class Tab1Page {
+export class Tab1Page implements ViewWillEnter {
   private modalClient: any;
   private modalInfoClient: any;
 
-  public clients:Array<Client>;
-  public listclients:Array<Client>;
+  public clients: any;
+  public listclients: any;
+  
+  public urlApi: string = 'http://127.0.0.1/api-veto/api_select_client.php';
 
   public search: string;
   private fenetreSuppre: any;
 
-  constructor(private clientService: ClientService ,private modalController: ModalController, private alertController:AlertController) {
+  constructor(private httpClient: HttpClient ,private clientService: ClientService ,private modalController: ModalController, private alertController:AlertController) {
     this.clients = new Array<Client>();
-    this.initialiserClient();
+    //this.initialiserClient();
     this.listclients = new Array<Client>();
-    this.listclients = this.clients;
 
-    // this.clients.push({nom: 'Viel', prenom: 'Mathieu', tel: '12', adresse: 'test'});
-    // this.clients.push({nom: 'Viel', prenom: 'Thomas', tel: '14', adresse: 'paris'});
-    // this.clients.push({nom: 'Bial', prenom: 'Tom', tel: '15', adresse: 'rue'});
-    // this.clients.push({nom: 'Moha', prenom: 'Timéo', tel: '7', adresse: 'street'});
-    // this.clients.push({nom: 'Chiat', prenom: 'Romain', tel: '32', adresse: 'bvd'});
-    console.log(this.clients);
+  }
+
+  ionViewWillEnter() {
+    this.httpClient.get(this.urlApi).subscribe(
+      resultat => {
+        console.log(resultat);
+        this.clients = resultat;
+        this.listclients = this.clients;
+      },
+      erreur => {
+        console.log('Erreur' + erreur);
+      }
+    );
   }
 
   initialiserClient() {
-    this.clients = this.clientService.getClients();
+    this.httpClient.get(this.urlApi).subscribe(
+      resultat => {
+        console.log(resultat);
+        this.clients = resultat;
+        this.listclients = this.clients;
+      },
+      erreur => {
+        console.log('Erreur' + erreur);
+      }
+    );
   }
 
   async afficherInfoClient(indice){
     console.log('Affichage modal avec les infos client');
     this.modalInfoClient = await this.modalController.create({
-      component: modalInfoClient,
+      component: ModalInfoClientPage,
       swipeToClose: true,
       componentProps: {
-        'unClient': this.clients[indice]
+        'id': this.clients[indice].id
       }
     });
     return await this.modalInfoClient.present();
@@ -70,7 +88,14 @@ export class Tab1Page {
       {
         text: 'Supprimer',
         handler: data => {
-          this.supprClient(indice);
+          this.httpClient.get("http://127.0.0.1/api-veto/api_delete_unClient.php?id="+this.clients[indice].id).subscribe(
+            resultat => {
+              this.initialiserClient();
+            },
+            erreur => {
+              console.log('Erreur' + erreur);
+            }
+          );
         }
       }]
     });

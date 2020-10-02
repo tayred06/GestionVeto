@@ -1,17 +1,19 @@
 import { newArray } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { Client } from "../model/client";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
 
-  listeClient:Array<Client>;
+  listeClient: Array<Client>;
 
   constructor() {
     console.log('Hello ClientService Provider');
     this.listeClient = new Array<Client>();
+
   }
   getClients():Array<Client> {
     return this.listeClient;

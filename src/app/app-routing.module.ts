@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'modal-info-animal',
     loadChildren: () => import('./modal-info-animal/modal-info-animal.module').then( m => m.ModalInfoAnimalPageModule)
+  },
+  {
+    path: 'modal-info-client',
+    loadChildren: () => import('./modal-info-client/modal-info-client.module').then( m => m.ModalInfoClientPageModule)
   }
 ];
 @NgModule({

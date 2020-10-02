@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 
 import { ClientService } from "../service/client.service";
 import { Client } from "../model/client";
@@ -12,19 +13,22 @@ import { Client } from "../model/client";
 export class ModalAjoutClientPage implements OnInit {
 
   public nouvClient: any;
-  // public nom:string;
-  // public prenom:string;
-  // public tel:number;
-  // public adresse:string;
-  
-  constructor(private clientService: ClientService) {
+
+  constructor(private httpClient: HttpClient, private clientService: ClientService) {
     this.nouvClient = new Client("", "", "", "");
     
   }
 
   ajouterClient() {
-    this.clientService.ajouterClient(this.nouvClient);
-    console.log(this.nouvClient);
+  //this.clientService.ajouterClient(this.nouvClient);
+  this.httpClient.get("http://127.0.0.1/api-veto/api_insert_unClient.php?nom=" + this.nouvClient.nom + "&prenom=" + this.nouvClient.prenom + "&tel=" + this.nouvClient.tel + "&adresse=" + this.nouvClient.nom + ";").subscribe(
+    resultat => {
+      console.log('ca marche');
+    },
+    erreur => {
+      console.log('Erreur' + erreur);
+    }
+  );
   }
 
   async dismiss() {

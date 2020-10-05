@@ -1,8 +1,9 @@
-.btn-closeModal {
-    width: 30px;
-    height: 40px;
+.btn {
+    display: flex;
+    flex-direction: column;
     position: fixed;
     bottom: 25px;
-    right: 45px;
+    right: 25px;
     font-size: 25px;
+    
 }

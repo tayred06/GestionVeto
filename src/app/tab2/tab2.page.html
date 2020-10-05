@@ -11,8 +11,8 @@
     <ion-searchbar [ngModel]=search (ionInput)="filterList($event)"></ion-searchbar>
   </div>
   <ion-list>
-    <ion-item *ngFor="let animal of animaux; let index = index">
-      <ion-label (click)="afficherInfoAnimal(index)">{{ animal.nom }}</ion-label>
+    <ion-item *ngFor="let animal of listanimaux; let index = index">
+      <ion-label (click)="afficherInfoAnimal(index)">{{ animal.prenom }}</ion-label>
       <ion-label (click)="afficherInfoAnimal(index)">{{ animal.type }}</ion-label>
       <ion-icon (click)=valideSuppre(index) color=danger name="trash-outline"></ion-icon>
     </ion-item>

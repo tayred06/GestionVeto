@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+
+import { AlertController, ViewWillEnter } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
+
 import { from } from 'rxjs';
-import { ModalAjoutAnimalPage } from '../modal-ajout-animal/modal-ajout-animal.page';
 import { ModalInfoAnimalPage } from "../modal-info-animal/modal-info-animal.page";
 
 @Component({
@@ -10,38 +12,41 @@ import { ModalInfoAnimalPage } from "../modal-info-animal/modal-info-animal.page
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page {
+export class Tab2Page implements ViewWillEnter{
   
-  public animaux:Array<Object>;
-  public listanimaux:Array<Object>;
+  public animaux: any;
+  public listanimaux: any;
   public search: string;
   private fenetreSuppre: any;
-  private modalAjoutAnimal: any;
   private modalInfoAnimal: any;
 
-  constructor(private modalController: ModalController, private alertController:AlertController) {
+  public urlAPI: string = 'http://127.0.0.1/api-veto/api_select_animal.php';
+
+  constructor(private httpClient: HttpClient ,private modalController: ModalController, private alertController:AlertController) {
 
     this.animaux = new Array<Object>();
     this.listanimaux = new Array<Object>();
     this.listanimaux = this.animaux;
-    this.animaux.push({nom: 'margerite', type: 'vache', datenaisse: '12'});
-    this.animaux.push({nom: 'tat', type: 'poule', datenaisse: '12'});
-    this.animaux.push({nom: 'leo', type: 'canard', datenaisse: '12'});
-    this.animaux.push({nom: 'vita', type: 'vache', datenaisse: '12'});
-    this.animaux.push({nom: 'zeta', type: 'coque', datenaisse: '12'});
-    this.animaux.push({nom: 'malo', type: 'chat', datenaisse: '12'});
-    this.animaux.push({nom: 'nemo', type: 'chien', datenaisse: '12'});
-
   }
 
-  async afficherAjouterAnimal() {
-    console.log('Affichage de la modal pour ajouer un animal');
-    this.modalAjoutAnimal = await this.modalController.create({
-      component: ModalAjoutAnimalPage,
-      swipeToClose: true
-    });
-    return await this.modalAjoutAnimal.present();
+  ionViewWillEnter() {
+    this.initialiserAnimal();
   }
+
+  initialiserAnimal() {
+    this.httpClient.get(this.urlAPI).subscribe(
+      resultat => {
+        console.log(resultat);
+        this.animaux = resultat;
+        this.listanimaux = this.animaux;
+      },
+      erreur => {
+        console.log('Erreur' + erreur);
+      }
+    );
+  }
+
+  
 
   async afficherInfoAnimal() {
     console.log('Affichage de la modal pour les infos d\'un animal');
@@ -76,6 +81,18 @@ export class Tab2Page {
   }
 
   async filterList(evt) {
-  }
+    this.listanimaux = await this.animaux;
+    const searchTerm = evt.srcElement.value;
 
+    if (!searchTerm) {
+      return;
+    }
+
+    this.listanimaux = this.animaux.filter(data => {
+      if (data.prenom && searchTerm) {
+        return (data.prenom.toLowerCase().indexOf(searchTerm.toLowerCase())) > -1 || (data.type.toLowerCase().indexOf(searchTerm.toLowerCase())) > -1;
+      }
+    });
+  }
+  
 }

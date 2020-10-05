@@ -30,5 +30,8 @@
       <ion-label>Nom de l'animal</ion-label>
     </ion-item>
   </ion-list>
-  <ion-button class="btn-closeModal" color="primary">X</ion-button>
+  <div class="btn">
+    <ion-button class="btn-closeModal" color="danger">X</ion-button>
+    <ion-button class="btn-addAnimal" color="primary" (click)="afficherAjouterAnimal()">Ajout animal</ion-button>  
+  </div>
 </ion-content>

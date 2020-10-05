@@ -37,16 +37,7 @@ export class Tab1Page implements ViewWillEnter {
   }
 
   ionViewWillEnter() {
-    this.httpClient.get(this.urlApi).subscribe(
-      resultat => {
-        console.log(resultat);
-        this.clients = resultat;
-        this.listclients = this.clients;
-      },
-      erreur => {
-        console.log('Erreur' + erreur);
-      }
-    );
+    this.initialiserClient();
   }
 
   initialiserClient() {

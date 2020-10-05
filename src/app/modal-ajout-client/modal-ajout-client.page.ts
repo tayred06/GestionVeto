@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { ClientService } from "../service/client.service";
 import { Client } from "../model/client";
 
+
 @Component({
   selector: 'app-modal-ajout-client',
   templateUrl: './modal-ajout-client.page.html',
@@ -13,6 +14,8 @@ import { Client } from "../model/client";
 export class ModalAjoutClientPage implements OnInit {
 
   public nouvClient: any;
+
+  
 
   constructor(private httpClient: HttpClient, private clientService: ClientService) {
     this.nouvClient = new Client("", "", "", "");
@@ -38,8 +41,10 @@ export class ModalAjoutClientPage implements OnInit {
       // this.modalCtrl.dismiss({
       //   'dismissed': true
       // });
-      console.log('Fermetur de la modale');
-    }
+    console.log('Fermetur de la modale');
+  }
+
+  
   ngOnInit() {
   }
 

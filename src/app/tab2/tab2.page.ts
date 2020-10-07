@@ -48,11 +48,14 @@ export class Tab2Page implements ViewWillEnter{
 
   
 
-  async afficherInfoAnimal() {
+  async afficherInfoAnimal(indice) {
     console.log('Affichage de la modal pour les infos d\'un animal');
     this.modalInfoAnimal = await this.modalController.create({
       component: ModalInfoAnimalPage,
-      swipeToClose: true
+      swipeToClose: true,
+      componentProps :{
+        'id': this.animaux[indice].id
+      }
     });
     return await this.modalInfoAnimal.present();
   }

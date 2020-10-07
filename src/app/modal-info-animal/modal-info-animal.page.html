@@ -1,9 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>modal-info-animal</ion-title>
+    <ion-title>Info animal</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list *ngFor="let animal of unAnimal">
+    <ion-item>
+      <ion-label>Prénom</ion-label>
+      <ion-input type="text" value="{{ animal.prenom }}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Type</ion-label>
+      <ion-select value="Type" okText="Okay" cancelText="Dismiss" value="{{ animal.type }}">
+        <ion-select-option *ngFor="let type of typeAnimal" value="{{ type.type }}"> {{ type.type }} </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Date de naissance</ion-label>
+      <ion-datetime displayFormat="YYYY MMM DD" value="{{ animal.dateNaiss }}"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Proprietaire {{ animal.prenomProprio }} {{ animal.nomProprio }} </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-button color="success" expand="block">Enregistrer</ion-button>
 
+  <ion-list>
+    <ion-item>Intervention</ion-item>
+  </ion-list>
+
+  <ion-button class="btn-closeModal" color="danger">X</ion-button>
 </ion-content>

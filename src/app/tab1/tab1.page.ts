@@ -11,6 +11,9 @@ import { from } from 'rxjs';
 import { ModalAjoutClientPage } from '../modal-ajout-client/modal-ajout-client.page';
 import { ModalInfoClientPage } from '../modal-info-client/modal-info-client.page';
 
+import { Router } from "@angular/router";
+import { DataService } from "../service/data.service";
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -29,7 +32,7 @@ export class Tab1Page implements ViewWillEnter {
   public search: string;
   private fenetreSuppre: any;
 
-  constructor(private httpClient: HttpClient ,private clientService: ClientService ,private modalController: ModalController, private alertController:AlertController) {
+  constructor(private dataService: DataService, private router: Router, private httpClient: HttpClient ,private clientService: ClientService ,private modalController: ModalController, private alertController:AlertController) {
     this.clients = new Array<Client>();
     //this.initialiserClient();
     this.listclients = new Array<Client>();
@@ -54,15 +57,8 @@ export class Tab1Page implements ViewWillEnter {
   }
 
   async afficherInfoClient(indice){
-    console.log('Affichage modal avec les infos client');
-    this.modalInfoClient = await this.modalController.create({
-      component: ModalInfoClientPage,
-      swipeToClose: true,
-      componentProps: {
-        'id': this.clients[indice].id
-      }
-    });
-    return await this.modalInfoClient.present();
+    this.dataService.setIdClient(this.clients[indice].id);
+    this.router.navigateByUrl('/modal-info-client');
   }
 
   ouvrirMaps(){
@@ -94,12 +90,7 @@ export class Tab1Page implements ViewWillEnter {
   }
 
   async afficherAjouterClient() {
-    console.log('Affichage de la modal pour ajouer un client');
-    this.modalClient = await this.modalController.create({
-      component: ModalAjoutClientPage,
-      swipeToClose: true
-    });
-    return await this.modalClient.present();
+    this.router.navigateByUrl('/modal-info-client');
   }
 
   async filterList(evt) {

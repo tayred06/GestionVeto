@@ -7,6 +7,9 @@ import { ModalController } from '@ionic/angular';
 import { from } from 'rxjs';
 import { ModalInfoAnimalPage } from "../modal-info-animal/modal-info-animal.page";
 
+import { DataService } from "../service/data.service";
+import { Router } from "@angular/router";
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -22,7 +25,7 @@ export class Tab2Page implements ViewWillEnter{
 
   public urlAPI: string = 'http://127.0.0.1/api-veto/api_select_animal.php';
 
-  constructor(private httpClient: HttpClient ,private modalController: ModalController, private alertController:AlertController) {
+  constructor(private dataService: DataService, private router: Router, private httpClient: HttpClient ,private modalController: ModalController, private alertController:AlertController) {
 
     this.animaux = new Array<Object>();
     this.listanimaux = new Array<Object>();
@@ -46,18 +49,9 @@ export class Tab2Page implements ViewWillEnter{
     );
   }
 
-  
-
-  async afficherInfoAnimal(indice) {
-    console.log('Affichage de la modal pour les infos d\'un animal');
-    this.modalInfoAnimal = await this.modalController.create({
-      component: ModalInfoAnimalPage,
-      swipeToClose: true,
-      componentProps :{
-        'id': this.animaux[indice].id
-      }
-    });
-    return await this.modalInfoAnimal.present();
+  afficherInfoAnimal(indice) {
+    this.dataService.setIdAnimal(this.animaux[indice].id)
+    this.router.navigateByUrl('/modal-info-animal');
   }
 
   async valideSuppre(indice) {
@@ -78,8 +72,16 @@ export class Tab2Page implements ViewWillEnter{
   }
 
   supprAnimal(indice) {
-    this.animaux.splice(indice, 1);
-    this.listanimaux = this.animaux;
+    console.log(this.animaux[indice].id);
+    this.httpClient.get('http://127.0.0.1/api-veto/api_delete_unAnimal.php?id=' + this.animaux[indice].id).subscribe(
+      resultat => {
+        console.log('Done');
+        this.listanimaux = this.animaux;
+      },
+      erreur => {
+        console.log('Erreur' + erreur);
+      }
+    );
     this.search = '';
   }
 

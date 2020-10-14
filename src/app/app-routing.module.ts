@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'modal-info-client',
     loadChildren: () => import('./modal-info-client/modal-info-client.module').then( m => m.ModalInfoClientPageModule)
+  },
+  {
+    path: 'ajout-intervention',
+    loadChildren: () => import('./ajout-intervention/ajout-intervention.module').then( m => m.AjoutInterventionPageModule)
   }
 ];
 @NgModule({

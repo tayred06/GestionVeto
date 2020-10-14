@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
 import { Client } from "../model/client";
@@ -8,6 +8,9 @@ import { ModalController } from '@ionic/angular';
 import { ModalAjoutAnimalPage } from '../modal-ajout-animal/modal-ajout-animal.page';
 import { ModalInfoAnimalPage } from "../modal-info-animal/modal-info-animal.page";
 
+import { DataService } from "../service/data.service";
+import { Router } from "@angular/router";
+
 
 @Component({
   selector: 'app-modal-info-client',
@@ -16,7 +19,7 @@ import { ModalInfoAnimalPage } from "../modal-info-animal/modal-info-animal.page
 })
 export class ModalInfoClientPage implements ViewWillEnter {
 
-  @Input() id:string;
+  private id: string;
 
   private modalAjoutAnimal: any;
   private modalInfoAnimal: any;
@@ -27,7 +30,7 @@ export class ModalInfoClientPage implements ViewWillEnter {
   public animaux: any;
   // public urlApi: string = 'http://127.0.0.1/api-veto/api_select_unClient.php?recherche=' + this.id;
 
-  constructor(private httpClient: HttpClient, private modalController: ModalController) {
+  constructor(private router: Router, private dataService: DataService ,private httpClient: HttpClient, private modalController: ModalController) {
 
     this.unClient = new Array<Client>();
     this.animaux = new Array<Object>();
@@ -36,7 +39,8 @@ export class ModalInfoClientPage implements ViewWillEnter {
   }
 
   ionViewWillEnter() {
-    
+    this.id = this.dataService.getIdClient();
+    console.log(this.id);
     this.idProprio = this.id;
     this.httpClient.get('http://127.0.0.1/api-veto/api_select_unClient.php?recherche=' + this.id).subscribe(
       resultat => {
@@ -58,28 +62,18 @@ export class ModalInfoClientPage implements ViewWillEnter {
     );
   }
   
-  async afficherAjouterAnimal() {
-    console.log('Affichage de la modal pour ajouter un animal');
-    this.modalAjoutAnimal = await this.modalController.create({
-      component: ModalAjoutAnimalPage,
-      swipeToClose: true,
-      componentProps: {
-        'id': this.idProprio
-      }
-    });
-    return await this.modalAjoutAnimal.present();
+  async afficherAjouterAnimal(indice) {
+    this.router.navigateByUrl('/modal-ajout-animal');
   }
 
   async afficherInfoAnimal(indice) {
-    console.log('Affichage de la modal pour les infos d\'un animal');
-    this.modalInfoAnimal = await this.modalController.create({
-      component: ModalInfoAnimalPage,
-      swipeToClose: true,
-      componentProps :{
-        'id': this.animaux[indice].id
-      }
-    });
-    return await this.modalInfoAnimal.present();
+    this.dataService.setIdAnimal(this.animaux[indice].id);
+    this.router.navigateByUrl('/modal-info-animal');
+  }
+
+  returnTab1() {
+    this.dataService.setIdClient('0');
+    this.router.navigateByUrl('/tabs/tab1');
   }
 
 }

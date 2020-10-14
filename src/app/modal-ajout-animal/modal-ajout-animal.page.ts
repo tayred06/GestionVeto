@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { HttpClient } from "@angular/common/http";
 
+import { Router } from "@angular/router";
+import { DataService } from "../service/data.service";
+
 @Component({
   selector: 'app-modal-ajout-animal',
   templateUrl: './modal-ajout-animal.page.html',
@@ -9,24 +12,29 @@ import { HttpClient } from "@angular/common/http";
 })
 export class ModalAjoutAnimalPage implements OnInit {
 
-  public typeAnimal: Array<Object>;
+  public typeAnimal: any;
   public nouvAnimal: any;
+
+  public URLApi: string = 'http://127.0.0.1/api-veto/api_select_typeAnimal.php';
 
   @Input() id:string;
 
-  constructor(private httpClient:HttpClient) {
+  constructor(private router: Router, private dataService: DataService ,private httpClient:HttpClient) {
     this.nouvAnimal = new Array<Object>("", "", "", "");
     this.typeAnimal = new Array<Object>();
-    this.typeAnimal.push({type: 'Vache'});
-    this.typeAnimal.push({type: 'Chien'});
-    this.typeAnimal.push({type: 'Poule'});
-    this.typeAnimal.push({type: 'Coq'});
-    
     
   }
 
   ngOnInit() {
-
+    this.httpClient.get(this.URLApi).subscribe(
+      resultat => {
+        console.log(resultat);
+        this.typeAnimal = resultat;
+      },
+      erreur => {
+        console.log('Erreur' + erreur);
+      }
+    );
   }
 
   ajouterAnimal() {
@@ -39,6 +47,12 @@ export class ModalAjoutAnimalPage implements OnInit {
         console.log('Erreur' + erreur);
       }
     );
+    this.router.navigateByUrl('/modal-info-client');
+  }
+
+  returnInfoClient() {
+    this.router.navigateByUrl('/modal-info-client');
+    this.dataService.setIdClient(this.id);
   }
 
 }

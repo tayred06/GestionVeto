@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="tertiary">
     <ion-title>Info animal</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -29,7 +29,11 @@
 
   <ion-list>
     <ion-item>Intervention</ion-item>
+    <ion-item *ngFor="let inter of inters">
+      <ion-label>{{inter.type}}</ion-label>
+    </ion-item>
   </ion-list>
 
-  <ion-button class="btn-closeModal" color="danger">X</ion-button>
+  <ion-button class="btn-closeModal" color="danger" (click)="returnTab1()">X</ion-button>
+  <ion-button class="" color="primary" (click)="afficherAjoutIntervention()">Ajout intervention</ion-button>
 </ion-content>

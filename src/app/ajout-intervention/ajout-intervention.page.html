@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>Ajouter intervention</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Type</ion-label>
+      <!-- <ion-select value="Type" okText="Okay" cancelText="Dismiss" [(ngModel)]="nouvAnimal.type"> -->
+      <ion-select value="Type" okText="Okay" cancelText="Dismiss" [(ngModel)]="nouvInter.type">
+        <ion-select-option *ngFor="let type of typeInter" value="{{ type.type }}"> {{ type.type }} </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="YYYY MMM DD" value="" [(ngModel)]="nouvInter.date"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Durée</ion-label>
+      <ion-datetime displayFormat="HH:mm" value="" [(ngModel)]="nouvInter.duree"></ion-datetime>
+    </ion-item>
+  </ion-list>
+  <ion-button color="tertiary" expand=block (click)="ajouterInter()">Ajouter</ion-button>
+  <ion-button color="warning" expand=block (click)="returnTab2()">Annuler</ion-button>
+</ion-content>

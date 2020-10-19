@@ -45,7 +45,7 @@ export class AjoutInterventionPage implements OnInit {
     
     console.log('id'+this.idAnimal);
 
-    this.httpClient.get("http://127.0.0.1/api-veto/api_insert_uneInter.php?idAnimal="+ this.idAnimal +"&type=" + this.nouvInter.type + "&date=" + this.nouvInter.date + "&duree=" + this.nouvInter.duree).subscribe(
+    this.httpClient.get("http://127.0.0.1/api-veto/api_insert_uneInter.php?idAnimal="+ this.idAnimal +"&type=" + this.nouvInter.type + "&date=" + this.nouvInter.date + "&duree=" + this.nouvInter.duree + "&commentaire=" + this.nouvInter.commentaire).subscribe(
       resultat => {
         console.log(resultat);
       },

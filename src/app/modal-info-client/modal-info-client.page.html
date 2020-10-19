@@ -7,27 +7,22 @@
 <ion-content>
   <ion-list *ngFor="let client of unClient">
     <ion-item>
-      <ion-label>Nom</ion-label>
-      <ion-input type="text" value="{{ client.nom }}"></ion-input>
+      <ion-label>Nom: {{ client.nom }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Prenom</ion-label>
-      <ion-input type="text" value="{{ client.prenom }}"></ion-input>
+      <ion-label>Prenom: {{ client.prenom }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Tel</ion-label>
-      <ion-input type="text" value="{{ client.tel }}"></ion-input>
+      <ion-label>Tel: {{ client.tel }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Adresse</ion-label>
-      <ion-input type="text" value="{{ client.adresse }}"></ion-input>
+      <ion-label>Adresse {{ client.adresse }}</ion-label>
     </ion-item>
   </ion-list>
-  <ion-button color="success" expand="block">Enregistrer</ion-button>
 
   <ion-list>
     <ion-item>
-      <ion-label>Nom de l'animal</ion-label>
+      <ion-label>Liste des animaux</ion-label>
     </ion-item>
     <ion-item *ngFor="let unAnimal of animaux; let index = index" (click)="afficherInfoAnimal(index)">
       <ion-label>{{ unAnimal.prenom }}</ion-label>
@@ -36,7 +31,7 @@
     </ion-item>
   </ion-list>
   <div class="btn">
-    <ion-button class="btn-closeModal" color="danger" (click)="returnTab1()">X</ion-button>
-    <ion-button class="btn-addAnimal" color="primary" (click)="afficherAjouterAnimal()">Ajout animal</ion-button>  
+    <ion-button expand="block" color="tertiary" (click)="afficherAjouterAnimal()">Ajout animal</ion-button>
+    <ion-button expand="block" color="warning" (click)="returnTab1()">X</ion-button>
   </div>
 </ion-content>

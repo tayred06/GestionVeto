@@ -7,33 +7,30 @@
 <ion-content>
   <ion-list *ngFor="let animal of unAnimal">
     <ion-item>
-      <ion-label>Prénom</ion-label>
-      <ion-input type="text" value="{{ animal.prenom }}"></ion-input>
+      <ion-label>Prénom: {{ animal.prenom }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Type</ion-label>
-      <ion-select value="Type" okText="Okay" cancelText="Dismiss" value="{{ animal.type }}">
-        <ion-select-option *ngFor="let type of typeAnimal" value="{{ type.type }}"> {{ type.type }} </ion-select-option>
-      </ion-select>
+      <ion-label>Type: {{ animal.type }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Date de naissance</ion-label>
-      <ion-datetime displayFormat="YYYY MMM DD" value="{{ animal.dateNaiss }}"></ion-datetime>
+      <ion-label>Date de naissance: {{ animal.dateNaiss }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>Proprietaire {{ animal.prenomProprio }} {{ animal.nomProprio }} </ion-label>
     </ion-item>
   </ion-list>
   
-  <ion-button color="success" expand="block">Enregistrer</ion-button>
-
   <ion-list>
     <ion-item>Intervention</ion-item>
-    <ion-item *ngFor="let inter of inters">
-      <ion-label>{{inter.type}}</ion-label>
+    <ion-item *ngFor="let inter of inters; let index = index">
+      <ion-label (click)="afficherUneIntervention(index)">{{inter.type}}</ion-label>
     </ion-item>
   </ion-list>
 
-  <ion-button class="btn-closeModal" color="danger" (click)="returnTab1()">X</ion-button>
-  <ion-button class="" color="primary" (click)="afficherAjoutIntervention()">Ajout intervention</ion-button>
+  <div class="btn">
+    <ion-button expand="block" color="tertiary" (click)="afficherAjoutIntervention()">Ajout intervention</ion-button>
+    <ion-button expand="block" color="warning" (click)="returnTab1()">X</ion-button>
+  </div>
+  
+
 </ion-content>

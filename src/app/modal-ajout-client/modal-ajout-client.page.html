@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="tertiary">
       <ion-title>
           Ajouter un Client
       </ion-title>
@@ -7,29 +7,26 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card>
-      <ion-card-header>
-          <ion-card-title>Ajoutez les informations du client</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-          <ion-list>
-              <ion-item>
-                  <ion-input type="text" placeholder="Nom" [(ngModel)] ="nouvClient.nom"></ion-input>
-              </ion-item>
-              <ion-item>
-                  <ion-input type="text" placeholder="Prenom" [(ngModel)] ="nouvClient.prenom"></ion-input>
-              </ion-item>
-              <ion-item>
-                  <ion-input type="text" placeholder="Téléphone" [(ngModel)] ="nouvClient.tel"></ion-input>
-              </ion-item>
-              <ion-item>
-                  <ion-input type="text" placeholder="Adresse" [(ngModel)] ="nouvClient.adresse"></ion-input>
-              </ion-item>
-          </ion-list>
-      </ion-card-content>
-      <ion-card-subtitle style="padding: 1rem;">
-          <ion-button color="primary" expand=block (click)="ajouterClient()">Ajouter</ion-button>
-          <ion-button color="primary" expand=block (click)="dismiss()">Annuler</ion-button>
-      </ion-card-subtitle>
-  </ion-card>
+  
+    <ion-list>
+        <ion-item>
+            <ion-input type="text" placeholder="Nom" [(ngModel)] ="nouvClient.nom"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="text" placeholder="Prenom" [(ngModel)] ="nouvClient.prenom"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="text" placeholder="Téléphone" [(ngModel)] ="nouvClient.tel"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="text" placeholder="Adresse" [(ngModel)] ="nouvClient.adresse"></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <div class="btn">
+        <ion-button color="tertiary" expand=block (click)="ajouterClient()">Ajouter</ion-button>
+        <ion-button color="warning" expand=block (click)="returnTab1()">Annuler</ion-button>
+    </div>
+
+
 </ion-content>

@@ -34,6 +34,7 @@ export class Tab2Page implements ViewWillEnter{
 
   ionViewWillEnter() {
     this.initialiserAnimal();
+    this.dataService.setIdAnimal('0');
   }
 
   initialiserAnimal() {

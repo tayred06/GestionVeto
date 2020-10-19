@@ -7,10 +7,6 @@ import { ModalController } from '@ionic/angular';
 import { ClientService } from "../service/client.service";
 import { Client } from "../model/client";
 
-import { from } from 'rxjs';
-import { ModalAjoutClientPage } from '../modal-ajout-client/modal-ajout-client.page';
-import { ModalInfoClientPage } from '../modal-info-client/modal-info-client.page';
-
 import { Router } from "@angular/router";
 import { DataService } from "../service/data.service";
 
@@ -90,7 +86,7 @@ export class Tab1Page implements ViewWillEnter {
   }
 
   async afficherAjouterClient() {
-    this.router.navigateByUrl('/modal-info-client');
+    this.router.navigateByUrl('/modal-ajout-client');
   }
 
   async filterList(evt) {

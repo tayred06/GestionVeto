@@ -1,5 +1,12 @@
-.btn-closeModal {
+.btn {
     position: fixed;
     bottom: 25px;
-    right: 25px;
+    width: 100%;
+}
+
+ion-list {
+    margin-bottom: 25px;
+}
+ion-button {
+    --border-radius: 3px;
 }

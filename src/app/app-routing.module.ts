@@ -25,6 +25,10 @@ const routes: Routes = [
   {
     path: 'ajout-intervention',
     loadChildren: () => import('./ajout-intervention/ajout-intervention.module').then( m => m.AjoutInterventionPageModule)
+  },
+  {
+    path: 'info-intervention',
+    loadChildren: () => import('./info-intervention/info-intervention.module').then( m => m.InfoInterventionPageModule)
   }
 ];
 @NgModule({

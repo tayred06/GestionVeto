@@ -41,6 +41,7 @@ export class ModalInfoAnimalPage implements OnInit {
       resultat => {
         console.log('inter'+resultat);
         this.inters = resultat;
+        console.log(this.inters);
       },
       erreur => {
         console.log(erreur);
@@ -57,6 +58,11 @@ export class ModalInfoAnimalPage implements OnInit {
     this.dataService.setIdAnimal(this.id);
     //console.log(this.dataService.getIdAnimal());
     this.router.navigateByUrl('/ajout-intervention')
+  }
+
+  afficherUneIntervention(indice) {
+    this.dataService.setIdInter(this.inters[indice].id);
+    this.router.navigateByUrl('/info-intervention');
   }
 
 }

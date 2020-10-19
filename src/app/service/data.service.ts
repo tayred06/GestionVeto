@@ -8,6 +8,7 @@ export class DataService {
 
   public idClient: string;
   public idAnimal: string;
+  public idInter: string;
 
   constructor() {
 
@@ -16,7 +17,6 @@ export class DataService {
   setIdClient(id) {
     this.idClient = id;
   }
-
   getIdClient() {
     return this.idClient;
   }
@@ -24,9 +24,15 @@ export class DataService {
   setIdAnimal(id) {
     this.idAnimal = id;
   }
-
   getIdAnimal() {
     return this.idAnimal;
+  }
+
+  setIdInter(id) {
+    this.idInter = id;
+  }
+  getIdInter() {
+    return this.idInter;
   }
 
 }

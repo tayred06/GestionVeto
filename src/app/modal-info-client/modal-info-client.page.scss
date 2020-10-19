@@ -1,9 +1,13 @@
 .btn {
-    display: flex;
-    flex-direction: column;
     position: fixed;
     bottom: 25px;
-    right: 25px;
-    font-size: 25px;
-    
+    width: 100%;
+}
+
+ion-list {
+    margin-bottom: 25px;
+}
+
+ion-button {
+    --border-radius: 3px;
 }

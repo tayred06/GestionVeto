@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Geolocation } from "@ionic-native/geolocation/ngx";
 
 import { Client } from "../model/client";
 import { ViewWillEnter } from '@ionic/angular';
 
 import { ModalController } from '@ionic/angular';
-import { ModalAjoutAnimalPage } from '../modal-ajout-animal/modal-ajout-animal.page';
-import { ModalInfoAnimalPage } from "../modal-info-animal/modal-info-animal.page";
 
 import { DataService } from "../service/data.service";
 import { Router } from "@angular/router";
@@ -27,7 +26,7 @@ export class ModalInfoClientPage implements ViewWillEnter {
   public animaux: any;
   // public urlApi: string = 'http://127.0.0.1/api-veto/api_select_unClient.php?recherche=' + this.id;
 
-  constructor(private router: Router, private dataService: DataService ,private httpClient: HttpClient, private modalController: ModalController) {
+  constructor(private geolocation: Geolocation, private router: Router, private dataService: DataService ,private httpClient: HttpClient, private modalController: ModalController) {
 
     this.unClient = new Array<Client>();
     this.animaux = new Array<Object>();
@@ -42,6 +41,7 @@ export class ModalInfoClientPage implements ViewWillEnter {
       resultat => {
         //console.log('unClient' + resultat);
         this.unClient = resultat;
+        console.log(this.unClient.geolocation);
       },
       erreur => {
         console.log('Erreur' + erreur);
@@ -58,14 +58,19 @@ export class ModalInfoClientPage implements ViewWillEnter {
     );
   }
   
-  async afficherAjouterAnimal() {
+  afficherAjouterAnimal() {
     this.dataService.setIdClient(this.unClient.id);
     this.router.navigateByUrl('/modal-ajout-animal');
   }
 
-  async afficherInfoAnimal(indice) {
+  afficherInfoAnimal(indice) {
     this.dataService.setIdAnimal(this.animaux[indice].id);
     this.router.navigateByUrl('/modal-info-animal');
+  }
+
+
+  openMaps(coord) {
+    window.open('https://www.google.com/maps/search/?api=1&query=' + coord);
   }
 
   returnTab1() {

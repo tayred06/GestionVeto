@@ -7,5 +7,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
+  <a href="#" onclick="window.open('https://www.google.com/maps/search/?api=1&query=47.5951518,-122.3316393', '_system', 'location=yes');" >Google</a>
+  <ion-button (click)="openMaps()">Maps</ion-button>
+  <ion-button (click)="afficherLoca()">loca</ion-button>
+  <ion-label>{{ coordX }} / {{ coordY }}</ion-label>
 </ion-content>

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Geolocation } from "@ionic-native/geolocation/ngx";
 
 import { ClientService } from "../service/client.service";
 import { Client } from "../model/client";
 
 import { Router } from "@angular/router";
 import { from } from 'rxjs';
+import { ViewWillEnter } from '@ionic/angular';
 
 
 @Component({
@@ -13,25 +15,41 @@ import { from } from 'rxjs';
   templateUrl: './modal-ajout-client.page.html',
   styleUrls: ['./modal-ajout-client.page.scss'],
 })
-export class ModalAjoutClientPage implements OnInit {
+export class ModalAjoutClientPage implements ViewWillEnter {
 
   public nouvClient: any;
+  public coord: any;
+  public nouvCoord: any
 
-  constructor(private router: Router ,private httpClient: HttpClient, private clientService: ClientService) {
+  constructor(private geolocation: Geolocation, private router: Router ,private httpClient: HttpClient, private clientService: ClientService) {
     this.nouvClient = new Client("", "", "", "");
     
   }
 
-  ajouterClient() {
-  //this.clientService.ajouterClient(this.nouvClient);
-  this.httpClient.get("http://127.0.0.1/api-veto/api_insert_unClient.php?nom=" + this.nouvClient.nom + "&prenom=" + this.nouvClient.prenom + "&tel=" + this.nouvClient.tel + "&adresse=" + this.nouvClient.nom).subscribe(
-    resultat => {
-      console.log('ca marche');
-    },
-    erreur => {
-      console.log('Erreur' + erreur);
-    }
-  );
+  async ionViewWillEnter() {
+    this.recupLoca();
+  }
+
+  async recupLoca() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.coord = resp.coords.latitude + ", " + resp.coords.longitude;
+    }).catch((error) => {
+      console.log('Erreur loca' + error);
+    });
+    return this.coord;
+  }
+
+  async ajouterClient() {
+    this.recupLoca();
+    console.log(this.coord);
+    this.httpClient.get("http://127.0.0.1/api-veto/api_insert_unClient.php?nom=" + this.nouvClient.nom + "&prenom=" + this.nouvClient.prenom + "&tel=" + this.nouvClient.tel + "&adresse=" + this.nouvClient.adresse + "&geolocation=" + this.coord).subscribe(
+      resultat => {
+        console.log('ca marche');
+      },
+      erreur => {
+        console.log('Erreur' + erreur);
+      }
+    );
   }
 
   returnTab1() {
@@ -39,7 +57,6 @@ export class ModalAjoutClientPage implements OnInit {
   }
 
   
-  ngOnInit() {
-  }
+  
 
 }

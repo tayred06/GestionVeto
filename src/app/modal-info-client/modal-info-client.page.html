@@ -18,7 +18,9 @@
     <ion-item>
       <ion-label>Adresse {{ client.adresse }}</ion-label>
     </ion-item>
+    <ion-button expand="block" (click)="openMaps(client.geolocation)">Maps</ion-button>
   </ion-list>
+  
 
   <ion-list>
     <ion-item>

@@ -40,7 +40,6 @@ export class Tab2Page implements ViewWillEnter{
   initialiserAnimal() {
     this.httpClient.get(this.urlAPI).subscribe(
       resultat => {
-        console.log(resultat);
         this.animaux = resultat;
         this.listanimaux = this.animaux;
       },
@@ -73,10 +72,8 @@ export class Tab2Page implements ViewWillEnter{
   }
 
   supprAnimal(indice) {
-    console.log(this.animaux[indice].id);
     this.httpClient.get('http://127.0.0.1/api-veto/api_delete_unAnimal.php?id=' + this.animaux[indice].id).subscribe(
       resultat => {
-        console.log('Done');
         this.listanimaux = this.animaux;
       },
       erreur => {

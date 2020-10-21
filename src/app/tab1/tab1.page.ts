@@ -42,7 +42,6 @@ export class Tab1Page implements ViewWillEnter {
   initialiserClient() {
     this.httpClient.get(this.urlApi).subscribe(
       resultat => {
-        console.log(resultat);
         this.clients = resultat;
         this.listclients = this.clients;
       },
@@ -55,10 +54,6 @@ export class Tab1Page implements ViewWillEnter {
   async afficherInfoClient(indice){
     this.dataService.setIdClient(this.clients[indice].id);
     this.router.navigateByUrl('/modal-info-client');
-  }
-
-  ouvrirMaps(){
-    console.log('Ouvertur dans maps');
   }
 
   async valideSuppre(indice) {

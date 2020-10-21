@@ -11,7 +11,6 @@ export class ClientService {
   listeClient: Array<Client>;
 
   constructor() {
-    console.log('Hello ClientService Provider');
     this.listeClient = new Array<Client>();
 
   }

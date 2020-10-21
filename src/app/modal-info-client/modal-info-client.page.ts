@@ -35,13 +35,10 @@ export class ModalInfoClientPage implements ViewWillEnter {
 
   ionViewWillEnter() {
     this.id = this.dataService.getIdClient();
-    console.log(this.id);
     this.idPropio = this.id;
     this.httpClient.get('http://127.0.0.1/api-veto/api_select_unClient.php?recherche=' + this.id).subscribe(
       resultat => {
-        //console.log('unClient' + resultat);
         this.unClient = resultat;
-        console.log(this.unClient.geolocation);
       },
       erreur => {
         console.log('Erreur' + erreur);
@@ -49,7 +46,6 @@ export class ModalInfoClientPage implements ViewWillEnter {
     );
     this.httpClient.get('http://127.0.0.1/api-veto/api_select_animalByClient.php?recherche=' + this.id).subscribe(
       resultat => {
-        console.log('Animaux' + resultat);
         this.animaux = resultat;
       },
       erreur => {
@@ -59,7 +55,7 @@ export class ModalInfoClientPage implements ViewWillEnter {
   }
   
   afficherAjouterAnimal() {
-    this.dataService.setIdClient(this.unClient.id);
+    this.dataService.setIdClient(this.id);
     this.router.navigateByUrl('/modal-ajout-animal');
   }
 

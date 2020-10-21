@@ -10,7 +10,7 @@
       <ion-label>Prénom: {{ animal.prenom }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Type: {{ animal.type }}</ion-label>
+      <ion-label>Type: {{ animal.linkImg }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>Date de naissance: {{ animal.dateNaiss }}</ion-label>
@@ -18,8 +18,11 @@
     <ion-item>
       <ion-label>Proprietaire {{ animal.prenomProprio }} {{ animal.nomProprio }} </ion-label>
     </ion-item>
+    <ion-item *ngFor="let photo of photoService.photos; index as position">
+      <ion-img src="{{ photo.base64 }}"></ion-img>
+    </ion-item>
   </ion-list>
-  
+
   <ion-list>
     <ion-item>Intervention</ion-item>
     <ion-item *ngFor="let inter of inters; let index = index">
@@ -31,6 +34,6 @@
     <ion-button expand="block" color="tertiary" (click)="afficherAjoutIntervention()">Ajout intervention</ion-button>
     <ion-button expand="block" color="warning" (click)="returnTab1()">X</ion-button>
   </div>
-  
+
 
 </ion-content>

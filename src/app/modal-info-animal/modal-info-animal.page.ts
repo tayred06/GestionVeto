@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Router } from "@angular/router";
+
 import { DataService } from "../service/data.service";
+import { PhotoService } from '../service/photo.service';
 
 @Component({
   selector: 'app-modal-info-animal',
@@ -17,9 +19,11 @@ export class ModalInfoAnimalPage implements OnInit {
   public unAnimal: any;
 
   public inters: any;
+
+  public lienImage: any;
   
 
-  constructor(private dataService: DataService, private router: Router, private httpClient: HttpClient) {
+  constructor(public photoService: PhotoService, private dataService: DataService, private router: Router, private httpClient: HttpClient) {
     this.unAnimal = new Array<Object>();
     
     this.inters = new Array<Object>();
@@ -27,24 +31,22 @@ export class ModalInfoAnimalPage implements OnInit {
 
   ngOnInit() {
     this.id = this.dataService.getIdAnimal();
-    console.log(this.id);
-    this.httpClient.get('http://127.0.0.1/api-veto/api_select_unAnimal.php?recherche=' + this.id).subscribe(
-      resultat => {
-        //console.log(resultat);
-        this.unAnimal = resultat;
-      },
-      erreur => {
-        console.log('Erreur: ' + erreur);
-      }
-    );
     this.httpClient.get('http://127.0.0.1/api-veto/api_select_interlByAnimal.php?recherche=' + this.id).subscribe(
       resultat => {
-        console.log('inter'+resultat);
         this.inters = resultat;
-        console.log(this.inters);
       },
       erreur => {
         console.log(erreur);
+      }
+    );
+    this.httpClient.get('http://127.0.0.1/api-veto/api_select_unAnimal.php?recherche=' + this.id).subscribe(
+      resultat => {
+        this.unAnimal = resultat;
+        this.lienImage = this.unAnimal[0].linkImg
+        this.photoService.loadSaved(this.lienImage);
+      },
+      erreur => {
+        console.log('Erreur: ' + erreur);
       }
     );
   }
@@ -56,7 +58,6 @@ export class ModalInfoAnimalPage implements OnInit {
 
   afficherAjoutIntervention() {
     this.dataService.setIdAnimal(this.id);
-    //console.log(this.dataService.getIdAnimal());
     this.router.navigateByUrl('/ajout-intervention')
   }
 

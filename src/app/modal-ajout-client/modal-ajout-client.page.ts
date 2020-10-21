@@ -41,10 +41,8 @@ export class ModalAjoutClientPage implements ViewWillEnter {
 
   async ajouterClient() {
     this.recupLoca();
-    console.log(this.coord);
     this.httpClient.get("http://127.0.0.1/api-veto/api_insert_unClient.php?nom=" + this.nouvClient.nom + "&prenom=" + this.nouvClient.prenom + "&tel=" + this.nouvClient.tel + "&adresse=" + this.nouvClient.adresse + "&geolocation=" + this.coord).subscribe(
       resultat => {
-        console.log('ca marche');
       },
       erreur => {
         console.log('Erreur' + erreur);

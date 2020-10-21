@@ -7,8 +7,23 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <a href="#" onclick="window.open('https://www.google.com/maps/search/?api=1&query=47.5951518,-122.3316393', '_system', 'location=yes');" >Google</a>
+  <a href="#"
+    onclick="window.open('https://www.google.com/maps/search/?api=1&query=47.5951518,-122.3316393', '_system', 'location=yes');">Google</a>
   <ion-button (click)="openMaps()">Maps</ion-button>
   <ion-button (click)="afficherLoca()">loca</ion-button>
   <ion-label>{{ coordX }} / {{ coordY }}</ion-label>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="photoService.addNewToGallery()">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let photo of photoService.photos; index as position">
+        <ion-img src="{{ photo.base64 ? photo.base64 : photo.webviewPath }}">
+        </ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

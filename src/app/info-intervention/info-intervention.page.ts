@@ -24,7 +24,6 @@ export class InfoInterventionPage implements ViewWillEnter {
 
   ionViewWillEnter() {
     this.id = this.dataService.getIdInter();
-    console.log(this.id);
     this.httpClient.get('http://127.0.0.1/api-veto/api_select_uneInter.php?recherche=' + this.id).subscribe(
       resultat => {
         this.uneInter = resultat;

@@ -22,6 +22,12 @@
       </ion-item>
   </ion-list>
 
+  <ion-fab>
+    <ion-fab-button (click)="photoService.addNewToGallery()">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <div class="btn">
     <ion-button color="tertiary" expand=block (click)="ajouterAnimal()">Ajouter</ion-button>
     <ion-button color="warning" expand=block (click)="returnInfoClient()">Annuler</ion-button>

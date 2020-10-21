@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 
+import { PhotoService } from '../service/photo.service';
+
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
@@ -12,8 +14,12 @@ export class Tab3Page {
   public coordX: any;
   public coordY: any;
 
-  constructor(private geolocation: Geolocation) {
+  constructor(public photoService: PhotoService, private geolocation: Geolocation) {
 
+  }
+
+  ngOnInit() {
+    //this.photoService.loadSaved();
   }
 
   async afficherLoca() {
